@@ -1,0 +1,7 @@
+FROM python:3.11-alpine
+
+WORKDIR /app
+COPY server.py ./
+
+EXPOSE 5000
+CMD ["python", "server.py"]

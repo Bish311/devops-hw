@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Application</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 2rem; background: #f9fafb; color: #111827; }
+        .card { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto; }
+        h1 { color: #2563eb; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        const e = React.createElement;
+        function App() {
+            return e("div", { className: "card" },
+                e("h1", null, "Hello World from React!"),
+                e("p", null, "Status: Online and Serving Static Assets via Nginx")
+            );
+        }
+        const domContainer = document.querySelector("#root");
+        const root = ReactDOM.createRoot(domContainer);
+        root.render(e(App));
+    </script>
+</body>
+</html>
