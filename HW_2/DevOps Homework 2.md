@@ -1,3 +1,25 @@
+# Kubernetes Fundamentals
+
+**Kubernetes Architecture & Management Homework Tasks**
+
+## Task 1: Cluster Architecture & Control Plane Diagnostics
+* Understand the role of master/control plane components: `kube-apiserver`, `etcd`, `kube-scheduler`, and `kube-controller-manager`.
+* Understand worker node architecture: `kubelet`, `kube-proxy`, and the Container Runtime Interface (CRI).
+* Inspect cluster nodes, component statuses, and system endpoints using `kubectl cluster-info` and `kubectl get nodes -o wide`.
+
+## Task 2: Imperative vs Declarative Management
+* Run an imperative container workload using `kubectl run`.
+* Dynamically update pod metadata using `kubectl label` and `kubectl annotate`.
+* Deploy declarative YAML manifests using `kubectl apply -f`.
+* Compare imperative ad-hoc commands with declarative GitOps best practices.
+
+## Task 3: Namespace Isolation & In-Pod Diagnostics
+* Create custom namespaces to isolate environments.
+* Deploy workloads into specific namespaces.
+* Execute diagnostic commands inside running containers using `kubectl exec`.
+
+---
+
 # Kubernetes Pods, ReplicaSets & Deployments
 
 **Kubernetes Core Objects Homework Tasks**
@@ -72,3 +94,23 @@
 ## Task 3: Layer-7 Routing with Ingress Controller
 * Deploy an Nginx Ingress Controller rule routing traffic to multiple internal backend services based on HTTP request paths (`/` to frontend and `/api` to backend).
 * Test path-based routing rules and verify HTTP response headers.
+
+---
+
+# Kubernetes Ingress, ConfigMaps & Secrets (Deep Dive)
+
+**Configuration Decoupling & Ingress Routing Tasks**
+
+## Task 1: Environment & File-Based ConfigMaps
+* Create environment variable ConfigMaps for runtime configuration.
+* Create file-based ConfigMaps and project them into Pods as configuration volume mounts (`/etc/bish-config/settings.json`).
+* Verify hot-reloading characteristics of volume-mounted ConfigMaps.
+
+## Task 2: Secure Secret Management
+* Create Opaque Secrets containing base64 encoded database credentials and API keys.
+* Inject secrets securely via `secretKeyRef` without exposing credentials in plaintext manifests.
+* Decode and verify secret keys using `kubectl get secret` and `base64 --decode`.
+
+## Task 3: Layer-7 Ingress Architecture
+* Deploy Ingress resources routing host-based traffic (`gateway.internal.example.com`) to backend service endpoints.
+* Verify Ingress address assignment and port mapping.

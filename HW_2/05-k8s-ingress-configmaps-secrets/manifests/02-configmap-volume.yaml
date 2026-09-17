@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bish-file-config
+  labels:
+    app: bish-gateway
+    author: bishwayan
+data:
+  settings.json: |
+    {
+      "gateway": "bish-edge-router",
+      "version": "2.4.0",
+      "rateLimitPerMin": 1000,
+      "adminEmail": "bish@example.com"
+    }

@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bish-gateway-deployment
+  labels:
+    app: bish-gateway
+    author: bishwayan
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bish-gateway
+  template:
+    metadata:
+      labels:
+        app: bish-gateway
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: bish-file-config
+      containers:
+        - name: gateway-container
+          image: nginx:1.25-alpine
+          ports:
+            - containerPort: 80
+          env:
+            - name: APP_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: bish-gateway-config
+                  key: APP_ENV
+            - name: APP_AUTHOR
+              valueFrom:
+                configMapKeyRef:
+                  name: bish-gateway-config
+                  key: APP_AUTHOR
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: bish-gateway-secrets
+                  key: DB_USER
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: bish-gateway-secrets
+                  key: DB_PASS
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/bish-config
+              readOnly: true
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "25m"
+            limits:
+              memory: "64Mi"
+              cpu: "50m"

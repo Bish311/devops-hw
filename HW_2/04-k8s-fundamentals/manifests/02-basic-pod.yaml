@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bish-core-web
+  namespace: bish-stage
+  labels:
+    app: core-web
+    tier: frontend
+    engineer: bishwayan
+  annotations:
+    build.version: "1.0.0"
+    contact: "bish@example.com"
+spec:
+  containers:
+    - name: nginx-server
+      image: nginx:1.25-alpine
+      ports:
+        - containerPort: 80
+          name: http
+      resources:
+        requests:
+          memory: "32Mi"
+          cpu: "25m"
+        limits:
+          memory: "64Mi"
+          cpu: "50m"

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: bish-stage
+  labels:
+    environment: staging
+    owner: bishwayan
