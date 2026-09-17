@@ -1,0 +1,63 @@
+services:
+  frontend:
+    image: nginx:1.25-alpine
+    container_name: bish-frontend
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - backend
+    networks:
+      - bish-net
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 128M
+
+  backend:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    image: bishwayan/microservice:1.0
+    container_name: bish-backend
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    expose:
+      - "3000"
+    depends_on:
+      - cache
+    networks:
+      - bish-net
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
+
+  cache:
+    image: redis:7.2-alpine
+    container_name: bish-cache
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - bish-cache-data:/data
+    networks:
+      - bish-net
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 64M
+
+networks:
+  bish-net:
+    driver: bridge
+
+volumes:
+  bish-cache-data:
+    driver: local

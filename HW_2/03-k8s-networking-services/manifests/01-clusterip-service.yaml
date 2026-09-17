@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bish-backend-deployment
+  labels:
+    app: bish-backend
+    author: bishwayan
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bish-backend
+  template:
+    metadata:
+      labels:
+        app: bish-backend
+    spec:
+      containers:
+        - name: backend-api
+          image: nginx:1.25-alpine
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "25m"
+            limits:
+              memory: "64Mi"
+              cpu: "50m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bish-backend-svc
+  labels:
+    app: bish-backend
+    author: bishwayan
+spec:
+  type: ClusterIP
+  selector:
+    app: bish-backend
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bish-dns-client
+  labels:
+    app: dns-client
+    author: bishwayan
+spec:
+  containers:
+    - name: test-client
+      image: curlimages/curl:8.5.0
+      command: ["/bin/sh", "-c", "sleep 3600"]

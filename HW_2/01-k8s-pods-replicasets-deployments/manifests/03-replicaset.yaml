@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: bish-api-rs
+  labels:
+    app: bish-api
+    tier: backend
+    author: bishwayan
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bish-api
+  template:
+    metadata:
+      labels:
+        app: bish-api
+        tier: backend
+    spec:
+      containers:
+        - name: api-container
+          image: nginx:1.25-alpine
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "25m"
+            limits:
+              memory: "64Mi"
+              cpu: "50m"

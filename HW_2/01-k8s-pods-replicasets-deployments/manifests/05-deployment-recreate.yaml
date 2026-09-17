@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bish-stateful-deployment
+  labels:
+    app: bish-worker
+    author: bishwayan
+spec:
+  replicas: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: bish-worker
+  template:
+    metadata:
+      labels:
+        app: bish-worker
+    spec:
+      containers:
+        - name: worker
+          image: busybox:1.36
+          command: ["/bin/sh", "-c"]
+          args:
+            - >
+              echo "Starting worker process...";
+              while true; do
+                echo "Processing background queue for Bishwayan...";
+                sleep 10;
+              done
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "25m"
+            limits:
+              memory: "64Mi"
+              cpu: "50m"

@@ -1,0 +1,12 @@
+{
+  "name": "bish-docker-service",
+  "version": "1.0.0",
+  "description": "Production containerized microservice authored by Bishwayan",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
